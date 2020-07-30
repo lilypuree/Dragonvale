@@ -1,0 +1,6 @@
+{
+  "variants" : {
+    "magical=true" : {"model" : "block/end_stone_bricks"},
+    "magical=false" : {"model" : "block/end_stone"}
+  }
+}

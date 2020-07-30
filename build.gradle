@@ -13,22 +13,17 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = '1.0'
-group = 'com.lilypuree.quarry_chisel' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = 'quarry_chisel'
+version = "${mod_version}"
+group = "lilypuree.${modid}" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "${modid}"
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 
 minecraft {
-    // The mappings can be changed at any time, and must be in the following format.
-    // snapshot_YYYYMMDD   Snapshot are built nightly.
-    // stable_#            Stables are built at the discretion of the MCP team.
-    // Use non-default mappings at your own risk. they may not always work.
-    // Simply re-run your setup task after changing the mappings to update your workspace.
-    mappings channel: 'snapshot', version: '20200103-1.14.3'
+    mappings channel: 'snapshot', version: "${mapping}-1.15.1"
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
     
-    // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
     // Default run configurations.
     // These can be tweaked, removed, or duplicated as needed.
@@ -43,7 +38,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                quarry_chisel {
+                dragonvale {
                     source sourceSets.main
                 } 
             }
@@ -59,7 +54,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                quarry_chisel {
+                dragonvale {
                     source sourceSets.main
                 }
             }
@@ -74,10 +69,10 @@ minecraft {
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
 
-            args '--mod', 'quarry_chisel', '--all', '--output', file('src/generated/resources/')
+            args '--mod', 'dragonvale', '--all', '--output', file('src/generated/resources/'), '--existing', sourceSets.main.resources.srcDirs[0]
 
             mods {
-                quarry_chisel {
+                dragonvale {
                     source sourceSets.main
                 }
             }
@@ -93,19 +88,27 @@ repositories {
         name = "ModMaven"
         url = "https://modmaven.k-4u.nl"
     }
+
+    maven {
+        url = 'https://jitpack.io'
+    }
+
 }
 dependencies {
     // Specify the version of Minecraft to use, If this is any group other then 'net.minecraft' it is assumed
     // that the dep is a ForgeGradle 'patcher' dependency. And it's patches will be applied.
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
-    minecraft 'net.minecraftforge:forge:1.14.4-28.1.0'
-    
-    compileOnly fg.deobf("mezz.jei:jei-1.14.4:6.0.0.24:api")
-    runtimeOnly fg.deobf("mezz.jei:jei-1.14.4:6.0.0.24")
-    
+    minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
+
     // For more info...
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
+
+    compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api")
+    // at runtime, use the full JEI jar
+    runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}")
+
+    implementation fg.deobf('com.github.bernie-g:geckolib:1.15-2.0.0-beta')
 
 }
 
@@ -113,12 +116,12 @@ dependencies {
 jar {
     manifest {
         attributes([
-            "Specification-Title": "quarry_chisel",
-            "Specification-Vendor": "quarry_chiselsareus",
+            "Specification-Title": "${modid}",
+            "Specification-Vendor": "dragonvalemodsareus",
             "Specification-Version": "1", // We are version 1 of ourselves
             "Implementation-Title": project.name,
             "Implementation-Version": "${version}",
-            "Implementation-Vendor" :"quarry_chiselsareus",
+            "Implementation-Vendor" :"dragonvalemodsareus",
             "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
