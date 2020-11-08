@@ -7,9 +7,12 @@ package lilypuree.dragonvale.dragons.entity.client;
 import lilypuree.dragonvale.DragonvaleMain;
 import lilypuree.dragonvale.dragons.entity.FireDragonEntity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import software.bernie.geckolib.animation.model.AnimatedEntityModel;
 import software.bernie.geckolib.animation.render.AnimatedModelRenderer;
 
+@OnlyIn(Dist.CLIENT)
 public class AdultFireDragonModel extends AnimatedEntityModel<FireDragonEntity> {
 
     private final AnimatedModelRenderer body;
@@ -228,4 +231,10 @@ public class AdultFireDragonModel extends AnimatedEntityModel<FireDragonEntity> 
     {
         return new ResourceLocation(DragonvaleMain.MODID, "animations/adultfiredragon.json");
     }
+
+
+	@Override
+	public void setRotationAngles(FireDragonEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+		super.setRotationAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+	}
 }

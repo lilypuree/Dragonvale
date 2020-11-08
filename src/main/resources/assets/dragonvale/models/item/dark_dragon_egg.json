@@ -1,0 +1,7 @@
+{
+  "parent" : "dragonvale:item/dragon_egg_template",
+  "textures" : {
+    "layer0" : "dragonvale:item/dragon_egg",
+    "layer1" : "dragonvale:item/dark_egg_overlay"
+  }
+}

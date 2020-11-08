@@ -5,9 +5,12 @@ import lilypuree.dragonvale.dragons.entity.FireDragonEntity;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nonnull;
 
+@OnlyIn(Dist.CLIENT)
 public class FireDragonRenderer extends DragonRendererBase<FireDragonEntity> {
 
     private static final ResourceLocation BFD_TEXTURE = new ResourceLocation(DragonvaleMain.MODID, "textures/entity/babyfiredragon.png");
